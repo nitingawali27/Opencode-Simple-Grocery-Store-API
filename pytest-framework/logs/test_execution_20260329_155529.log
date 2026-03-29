@@ -1,0 +1,1424 @@
+2026-03-29 15:55:29 | INFO     | ======================================================================
+2026-03-29 15:55:29 | INFO     | PYTEST CONFIGURATION
+2026-03-29 15:55:29 | INFO     | Log file: D:\Simple Grocery Store API\pytest-framework\logs\test_execution_20260329_155529.log
+2026-03-29 15:55:29 | INFO     | Report file: D:\Simple Grocery Store API\pytest-framework\reports/test_report_20260329_155529.html
+2026-03-29 15:55:29 | INFO     | ======================================================================
+2026-03-29 15:55:29 | INFO     | ======================================================================
+2026-03-29 15:55:29 | INFO     | TEST SESSION STARTED
+2026-03-29 15:55:29 | INFO     | Timestamp: 2026-03-29 15:55:29
+2026-03-29 15:55:29 | INFO     | ======================================================================
+2026-03-29 15:55:29 | INFO     | 
+######################################################################
+2026-03-29 15:55:29 | INFO     | STARTING TEST: tests/test_cart.py::TestCartWorkflow::test_full_cart_workflow
+2026-03-29 15:55:29 | INFO     | ######################################################################
+2026-03-29 15:55:29 | INFO     | API Client initialized with base URL: https://simple-grocery-store-api.click
+2026-03-29 15:55:29 | INFO     | ============================================================
+2026-03-29 15:55:29 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts
+2026-03-29 15:55:29 | INFO     | ============================================================
+2026-03-29 15:55:31 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:55:31 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "cartId": "AesWL6HDsc49F9e4jVdoU"
+}
+2026-03-29 15:55:31 | INFO     | ============================================================
+
+2026-03-29 15:55:31 | INFO     | Created test cart: AesWL6HDsc49F9e4jVdoU
+2026-03-29 15:55:31 | INFO     | Starting full cart workflow test
+2026-03-29 15:55:31 | INFO     | ============================================================
+2026-03-29 15:55:31 | INFO     | REQUEST: GET https://simple-grocery-store-api.click/carts/AesWL6HDsc49F9e4jVdoU
+2026-03-29 15:55:31 | INFO     | ============================================================
+2026-03-29 15:55:32 | INFO     | RESPONSE STATUS: 200 OK
+2026-03-29 15:55:32 | INFO     | RESPONSE BODY: {
+  "items": [],
+  "created": "2026-03-29T10:25:30.871Z"
+}
+2026-03-29 15:55:32 | INFO     | ============================================================
+
+2026-03-29 15:55:32 | INFO     | Step 1: Cart verified
+2026-03-29 15:55:32 | INFO     | ============================================================
+2026-03-29 15:55:32 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts/AesWL6HDsc49F9e4jVdoU/items
+2026-03-29 15:55:32 | INFO     | REQUEST BODY: {
+  "productId": 4643,
+  "quantity": 2
+}
+2026-03-29 15:55:32 | INFO     | ============================================================
+2026-03-29 15:55:33 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:55:33 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "itemId": 801334116
+}
+2026-03-29 15:55:33 | INFO     | ============================================================
+
+2026-03-29 15:55:33 | INFO     | Step 2: Added item 801334116
+2026-03-29 15:55:33 | INFO     | ============================================================
+2026-03-29 15:55:33 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts/AesWL6HDsc49F9e4jVdoU/items
+2026-03-29 15:55:33 | INFO     | REQUEST BODY: {
+  "productId": 1709,
+  "quantity": 1
+}
+2026-03-29 15:55:33 | INFO     | ============================================================
+2026-03-29 15:55:33 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:55:33 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "itemId": 424415603
+}
+2026-03-29 15:55:33 | INFO     | ============================================================
+
+2026-03-29 15:55:33 | INFO     | Step 3: Added item 424415603
+2026-03-29 15:55:33 | INFO     | ============================================================
+2026-03-29 15:55:33 | INFO     | REQUEST: GET https://simple-grocery-store-api.click/carts/AesWL6HDsc49F9e4jVdoU/items
+2026-03-29 15:55:33 | INFO     | ============================================================
+2026-03-29 15:55:34 | INFO     | RESPONSE STATUS: 200 OK
+2026-03-29 15:55:34 | INFO     | RESPONSE BODY: [
+  {
+    "productId": 4643,
+    "id": 801334116,
+    "quantity": 2
+  },
+  {
+    "productId": 1709,
+    "id": 424415603,
+    "quantity": 1
+  }
+]
+2026-03-29 15:55:34 | INFO     | ============================================================
+
+2026-03-29 15:55:34 | INFO     | Step 4: Retrieved 2 items from cart
+2026-03-29 15:55:34 | INFO     | ============================================================
+2026-03-29 15:55:34 | INFO     | REQUEST: PATCH https://simple-grocery-store-api.click/carts/AesWL6HDsc49F9e4jVdoU/items/801334116
+2026-03-29 15:55:34 | INFO     | REQUEST BODY: {
+  "quantity": 5
+}
+2026-03-29 15:55:34 | INFO     | ============================================================
+2026-03-29 15:55:35 | INFO     | RESPONSE STATUS: 204 No Content
+2026-03-29 15:55:35 | INFO     | RESPONSE BODY: 
+2026-03-29 15:55:35 | INFO     | ============================================================
+
+2026-03-29 15:55:35 | INFO     | Step 5: Modified item quantity to 5
+2026-03-29 15:55:35 | INFO     | ============================================================
+2026-03-29 15:55:35 | INFO     | REQUEST: DELETE https://simple-grocery-store-api.click/carts/AesWL6HDsc49F9e4jVdoU/items/424415603
+2026-03-29 15:55:35 | INFO     | ============================================================
+2026-03-29 15:55:36 | INFO     | RESPONSE STATUS: 204 No Content
+2026-03-29 15:55:36 | INFO     | RESPONSE BODY: 
+2026-03-29 15:55:36 | INFO     | ============================================================
+
+2026-03-29 15:55:36 | INFO     | Step 6: Deleted second item
+2026-03-29 15:55:36 | INFO     | ============================================================
+2026-03-29 15:55:36 | INFO     | REQUEST: GET https://simple-grocery-store-api.click/carts/AesWL6HDsc49F9e4jVdoU/items
+2026-03-29 15:55:36 | INFO     | ============================================================
+2026-03-29 15:55:37 | INFO     | RESPONSE STATUS: 200 OK
+2026-03-29 15:55:37 | INFO     | RESPONSE BODY: [
+  {
+    "productId": 4643,
+    "id": 801334116,
+    "quantity": 5
+  }
+]
+2026-03-29 15:55:37 | INFO     | ============================================================
+
+2026-03-29 15:55:37 | INFO     | Step 7: Cart has 1 item as expected
+2026-03-29 15:55:37 | INFO     | TEST PASSED: tests/test_cart.py::TestCartWorkflow::test_full_cart_workflow
+2026-03-29 15:55:37 | INFO     | Test completed for cart: AesWL6HDsc49F9e4jVdoU
+2026-03-29 15:55:37 | INFO     | ######################################################################
+2026-03-29 15:55:37 | INFO     | COMPLETED TEST: tests/test_cart.py::TestCartWorkflow::test_full_cart_workflow
+2026-03-29 15:55:37 | INFO     | ######################################################################
+
+2026-03-29 15:55:37 | INFO     | 
+######################################################################
+2026-03-29 15:55:37 | INFO     | STARTING TEST: tests/test_cart.py::TestCartWorkflow::test_replace_item_in_cart
+2026-03-29 15:55:37 | INFO     | ######################################################################
+2026-03-29 15:55:37 | INFO     | API Client initialized with base URL: https://simple-grocery-store-api.click
+2026-03-29 15:55:37 | INFO     | ============================================================
+2026-03-29 15:55:37 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts
+2026-03-29 15:55:37 | INFO     | ============================================================
+2026-03-29 15:55:38 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:55:38 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "cartId": "K_hxsPSmxXvFFLqQLrIiT"
+}
+2026-03-29 15:55:38 | INFO     | ============================================================
+
+2026-03-29 15:55:38 | INFO     | Created test cart: K_hxsPSmxXvFFLqQLrIiT
+2026-03-29 15:55:38 | INFO     | Testing item replacement
+2026-03-29 15:55:38 | INFO     | ============================================================
+2026-03-29 15:55:38 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts/K_hxsPSmxXvFFLqQLrIiT/items
+2026-03-29 15:55:38 | INFO     | REQUEST BODY: {
+  "productId": 4643,
+  "quantity": 1
+}
+2026-03-29 15:55:38 | INFO     | ============================================================
+2026-03-29 15:55:40 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:55:40 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "itemId": 643714907
+}
+2026-03-29 15:55:40 | INFO     | ============================================================
+
+2026-03-29 15:55:40 | INFO     | ============================================================
+2026-03-29 15:55:40 | INFO     | REQUEST: PUT https://simple-grocery-store-api.click/carts/K_hxsPSmxXvFFLqQLrIiT/items/643714907
+2026-03-29 15:55:40 | INFO     | REQUEST BODY: {
+  "productId": 1709,
+  "quantity": 3
+}
+2026-03-29 15:55:40 | INFO     | ============================================================
+2026-03-29 15:55:40 | INFO     | RESPONSE STATUS: 204 No Content
+2026-03-29 15:55:40 | INFO     | RESPONSE BODY: 
+2026-03-29 15:55:40 | INFO     | ============================================================
+
+2026-03-29 15:55:40 | INFO     | ============================================================
+2026-03-29 15:55:40 | INFO     | REQUEST: GET https://simple-grocery-store-api.click/carts/K_hxsPSmxXvFFLqQLrIiT/items
+2026-03-29 15:55:40 | INFO     | ============================================================
+2026-03-29 15:55:42 | INFO     | RESPONSE STATUS: 200 OK
+2026-03-29 15:55:42 | INFO     | RESPONSE BODY: [
+  {
+    "productId": 1709,
+    "id": 643714907,
+    "quantity": 3
+  }
+]
+2026-03-29 15:55:42 | INFO     | ============================================================
+
+2026-03-29 15:55:42 | INFO     | Item replacement successful
+2026-03-29 15:55:42 | INFO     | TEST PASSED: tests/test_cart.py::TestCartWorkflow::test_replace_item_in_cart
+2026-03-29 15:55:42 | INFO     | Test completed for cart: K_hxsPSmxXvFFLqQLrIiT
+2026-03-29 15:55:42 | INFO     | ######################################################################
+2026-03-29 15:55:42 | INFO     | COMPLETED TEST: tests/test_cart.py::TestCartWorkflow::test_replace_item_in_cart
+2026-03-29 15:55:42 | INFO     | ######################################################################
+
+2026-03-29 15:55:42 | INFO     | 
+######################################################################
+2026-03-29 15:55:42 | INFO     | STARTING TEST: tests/test_cart.py::TestCartWorkflow::test_empty_cart
+2026-03-29 15:55:42 | INFO     | ######################################################################
+2026-03-29 15:55:42 | INFO     | API Client initialized with base URL: https://simple-grocery-store-api.click
+2026-03-29 15:55:42 | INFO     | ============================================================
+2026-03-29 15:55:42 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts
+2026-03-29 15:55:42 | INFO     | ============================================================
+2026-03-29 15:55:42 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:55:42 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "cartId": "FBwCWADLC7ypXfjUBljuS"
+}
+2026-03-29 15:55:42 | INFO     | ============================================================
+
+2026-03-29 15:55:42 | INFO     | Created test cart: FBwCWADLC7ypXfjUBljuS
+2026-03-29 15:55:42 | INFO     | Testing empty cart
+2026-03-29 15:55:42 | INFO     | ============================================================
+2026-03-29 15:55:42 | INFO     | REQUEST: GET https://simple-grocery-store-api.click/carts/FBwCWADLC7ypXfjUBljuS/items
+2026-03-29 15:55:42 | INFO     | ============================================================
+2026-03-29 15:55:43 | INFO     | RESPONSE STATUS: 200 OK
+2026-03-29 15:55:43 | INFO     | RESPONSE BODY: []
+2026-03-29 15:55:43 | INFO     | ============================================================
+
+2026-03-29 15:55:43 | INFO     | Empty cart verified
+2026-03-29 15:55:43 | INFO     | TEST PASSED: tests/test_cart.py::TestCartWorkflow::test_empty_cart
+2026-03-29 15:55:43 | INFO     | Test completed for cart: FBwCWADLC7ypXfjUBljuS
+2026-03-29 15:55:43 | INFO     | ######################################################################
+2026-03-29 15:55:43 | INFO     | COMPLETED TEST: tests/test_cart.py::TestCartWorkflow::test_empty_cart
+2026-03-29 15:55:43 | INFO     | ######################################################################
+
+2026-03-29 15:55:44 | INFO     | 
+######################################################################
+2026-03-29 15:55:44 | INFO     | STARTING TEST: tests/test_cart.py::TestCartWorkflow::test_nonexistent_cart
+2026-03-29 15:55:44 | INFO     | ######################################################################
+2026-03-29 15:55:44 | INFO     | API Client initialized with base URL: https://simple-grocery-store-api.click
+2026-03-29 15:55:44 | INFO     | ============================================================
+2026-03-29 15:55:44 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts
+2026-03-29 15:55:44 | INFO     | ============================================================
+2026-03-29 15:55:44 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:55:44 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "cartId": "CFLIjJ-DpUJzSwk3WX9U8"
+}
+2026-03-29 15:55:44 | INFO     | ============================================================
+
+2026-03-29 15:55:44 | INFO     | Created test cart: CFLIjJ-DpUJzSwk3WX9U8
+2026-03-29 15:55:44 | INFO     | Testing non-existent cart
+2026-03-29 15:55:44 | INFO     | ============================================================
+2026-03-29 15:55:44 | INFO     | REQUEST: GET https://simple-grocery-store-api.click/carts/fake_cart_id_12345
+2026-03-29 15:55:44 | INFO     | ============================================================
+2026-03-29 15:55:45 | INFO     | RESPONSE STATUS: 404 Not Found
+2026-03-29 15:55:45 | INFO     | RESPONSE BODY: {
+  "error": "No cart with id fake_cart_id_12345."
+}
+2026-03-29 15:55:45 | INFO     | ============================================================
+
+2026-03-29 15:55:45 | INFO     | Non-existent cart returned 404 as expected
+2026-03-29 15:55:45 | INFO     | TEST PASSED: tests/test_cart.py::TestCartWorkflow::test_nonexistent_cart
+2026-03-29 15:55:45 | INFO     | Test completed for cart: CFLIjJ-DpUJzSwk3WX9U8
+2026-03-29 15:55:46 | INFO     | ######################################################################
+2026-03-29 15:55:46 | INFO     | COMPLETED TEST: tests/test_cart.py::TestCartWorkflow::test_nonexistent_cart
+2026-03-29 15:55:46 | INFO     | ######################################################################
+
+2026-03-29 15:55:46 | INFO     | 
+######################################################################
+2026-03-29 15:55:46 | INFO     | STARTING TEST: tests/test_orders.py::TestAuthentication::test_register_new_client
+2026-03-29 15:55:46 | INFO     | ######################################################################
+2026-03-29 15:55:46 | INFO     | API Client initialized with base URL: https://simple-grocery-store-api.click
+2026-03-29 15:55:46 | INFO     | Registering new client: Test Client 96687f16
+2026-03-29 15:55:46 | INFO     | ============================================================
+2026-03-29 15:55:46 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/api-clients
+2026-03-29 15:55:46 | INFO     | REQUEST BODY: {
+  "clientName": "Test Client 96687f16",
+  "clientEmail": "test_96687f16@example.com"
+}
+2026-03-29 15:55:46 | INFO     | ============================================================
+2026-03-29 15:55:47 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:55:47 | INFO     | RESPONSE BODY: {
+  "accessToken": "2db13d51ceb8b01e6d562209ecd74c7084f961eff6b352fc872773b45e4a0e6c"
+}
+2026-03-29 15:55:47 | INFO     | ============================================================
+
+2026-03-29 15:55:47 | INFO     | Authorization token set successfully
+2026-03-29 15:55:47 | INFO     | Successfully registered client. Token: 2db13d51ceb8b01e6d56...
+2026-03-29 15:55:47 | INFO     | TEST PASSED: tests/test_orders.py::TestAuthentication::test_register_new_client
+2026-03-29 15:55:47 | INFO     | ######################################################################
+2026-03-29 15:55:47 | INFO     | COMPLETED TEST: tests/test_orders.py::TestAuthentication::test_register_new_client
+2026-03-29 15:55:47 | INFO     | ######################################################################
+
+2026-03-29 15:55:47 | INFO     | 
+######################################################################
+2026-03-29 15:55:47 | INFO     | STARTING TEST: tests/test_orders.py::TestAuthentication::test_register_duplicate_email
+2026-03-29 15:55:47 | INFO     | ######################################################################
+2026-03-29 15:55:47 | INFO     | API Client initialized with base URL: https://simple-grocery-store-api.click
+2026-03-29 15:55:47 | INFO     | ============================================================
+2026-03-29 15:55:47 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/api-clients
+2026-03-29 15:55:47 | INFO     | REQUEST BODY: {
+  "clientName": "Duplicate Test",
+  "clientEmail": "duplicate_test@example.com"
+}
+2026-03-29 15:55:47 | INFO     | ============================================================
+2026-03-29 15:55:47 | INFO     | RESPONSE STATUS: 409 Conflict
+2026-03-29 15:55:47 | INFO     | RESPONSE BODY: {
+  "error": "API client already registered. Try a different email."
+}
+2026-03-29 15:55:47 | INFO     | ============================================================
+
+2026-03-29 15:55:47 | INFO     | ============================================================
+2026-03-29 15:55:47 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/api-clients
+2026-03-29 15:55:47 | INFO     | REQUEST BODY: {
+  "clientName": "Duplicate Test",
+  "clientEmail": "duplicate_test@example.com"
+}
+2026-03-29 15:55:47 | INFO     | ============================================================
+2026-03-29 15:55:48 | INFO     | RESPONSE STATUS: 409 Conflict
+2026-03-29 15:55:48 | INFO     | RESPONSE BODY: {
+  "error": "API client already registered. Try a different email."
+}
+2026-03-29 15:55:48 | INFO     | ============================================================
+
+2026-03-29 15:55:48 | INFO     | Duplicate email correctly rejected with 409
+2026-03-29 15:55:48 | INFO     | TEST PASSED: tests/test_orders.py::TestAuthentication::test_register_duplicate_email
+2026-03-29 15:55:48 | INFO     | ######################################################################
+2026-03-29 15:55:48 | INFO     | COMPLETED TEST: tests/test_orders.py::TestAuthentication::test_register_duplicate_email
+2026-03-29 15:55:48 | INFO     | ######################################################################
+
+2026-03-29 15:55:48 | INFO     | 
+######################################################################
+2026-03-29 15:55:48 | INFO     | STARTING TEST: tests/test_orders.py::TestOrderWorkflow::test_create_order
+2026-03-29 15:55:48 | INFO     | ######################################################################
+2026-03-29 15:55:48 | INFO     | API Client initialized with base URL: https://simple-grocery-store-api.click
+2026-03-29 15:55:48 | INFO     | ============================================================
+2026-03-29 15:55:48 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/api-clients
+2026-03-29 15:55:48 | INFO     | REQUEST BODY: {
+  "clientName": "Order Test 51de5f36",
+  "clientEmail": "order_test_51de5f36@example.com"
+}
+2026-03-29 15:55:48 | INFO     | ============================================================
+2026-03-29 15:55:49 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:55:49 | INFO     | RESPONSE BODY: {
+  "accessToken": "b5c2941c60a9bc042943624aba024065917ac9010f87d918c1d41e0c98b5ee28"
+}
+2026-03-29 15:55:49 | INFO     | ============================================================
+
+2026-03-29 15:55:49 | INFO     | Authorization token set successfully
+2026-03-29 15:55:49 | INFO     | Registered new client for order test
+2026-03-29 15:55:49 | INFO     | ============================================================
+2026-03-29 15:55:49 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts
+2026-03-29 15:55:49 | INFO     | ============================================================
+2026-03-29 15:55:51 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:55:51 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "cartId": "NFQjjbFimr6U-sCdiAdT7"
+}
+2026-03-29 15:55:51 | INFO     | ============================================================
+
+2026-03-29 15:55:51 | INFO     | ============================================================
+2026-03-29 15:55:51 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts/NFQjjbFimr6U-sCdiAdT7/items
+2026-03-29 15:55:51 | INFO     | REQUEST BODY: {
+  "productId": 4643,
+  "quantity": 2
+}
+2026-03-29 15:55:51 | INFO     | ============================================================
+2026-03-29 15:55:51 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:55:51 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "itemId": 526867545
+}
+2026-03-29 15:55:51 | INFO     | ============================================================
+
+2026-03-29 15:55:51 | INFO     | Created cart NFQjjbFimr6U-sCdiAdT7 with item
+2026-03-29 15:55:51 | INFO     | Test: Create Order
+2026-03-29 15:55:51 | INFO     | ============================================================
+2026-03-29 15:55:51 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/orders
+2026-03-29 15:55:51 | INFO     | REQUEST BODY: {
+  "cartId": "NFQjjbFimr6U-sCdiAdT7",
+  "customerName": "John Doe",
+  "comment": "Please prepare quickly"
+}
+2026-03-29 15:55:51 | INFO     | ============================================================
+2026-03-29 15:55:53 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:55:53 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "orderId": "uH8hZY9s2lksjiwsO_rD6"
+}
+2026-03-29 15:55:53 | INFO     | ============================================================
+
+2026-03-29 15:55:53 | INFO     | Order created successfully: uH8hZY9s2lksjiwsO_rD6
+2026-03-29 15:55:53 | INFO     | TEST PASSED: tests/test_orders.py::TestOrderWorkflow::test_create_order
+2026-03-29 15:55:53 | INFO     | ============================================================
+2026-03-29 15:55:53 | INFO     | REQUEST: DELETE https://simple-grocery-store-api.click/orders/uH8hZY9s2lksjiwsO_rD6
+2026-03-29 15:55:53 | INFO     | ============================================================
+2026-03-29 15:55:53 | INFO     | RESPONSE STATUS: 204 No Content
+2026-03-29 15:55:53 | INFO     | RESPONSE BODY: 
+2026-03-29 15:55:53 | INFO     | ============================================================
+
+2026-03-29 15:55:53 | INFO     | Cleaned up order: uH8hZY9s2lksjiwsO_rD6
+2026-03-29 15:55:53 | INFO     | ######################################################################
+2026-03-29 15:55:53 | INFO     | COMPLETED TEST: tests/test_orders.py::TestOrderWorkflow::test_create_order
+2026-03-29 15:55:53 | INFO     | ######################################################################
+
+2026-03-29 15:55:53 | INFO     | 
+######################################################################
+2026-03-29 15:55:53 | INFO     | STARTING TEST: tests/test_orders.py::TestOrderWorkflow::test_get_all_orders
+2026-03-29 15:55:53 | INFO     | ######################################################################
+2026-03-29 15:55:53 | INFO     | API Client initialized with base URL: https://simple-grocery-store-api.click
+2026-03-29 15:55:53 | INFO     | ============================================================
+2026-03-29 15:55:53 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/api-clients
+2026-03-29 15:55:53 | INFO     | REQUEST BODY: {
+  "clientName": "Order Test db5c32e4",
+  "clientEmail": "order_test_db5c32e4@example.com"
+}
+2026-03-29 15:55:53 | INFO     | ============================================================
+2026-03-29 15:55:55 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:55:55 | INFO     | RESPONSE BODY: {
+  "accessToken": "31b7baebb5943b6983fdc97dc16ee4f4f7f94f02962174f2da30ad3c9b0a98c7"
+}
+2026-03-29 15:55:55 | INFO     | ============================================================
+
+2026-03-29 15:55:55 | INFO     | Authorization token set successfully
+2026-03-29 15:55:55 | INFO     | Registered new client for order test
+2026-03-29 15:55:55 | INFO     | ============================================================
+2026-03-29 15:55:55 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts
+2026-03-29 15:55:55 | INFO     | ============================================================
+2026-03-29 15:55:56 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:55:56 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "cartId": "v-0p_rg_E9hY0-M_UgER7"
+}
+2026-03-29 15:55:56 | INFO     | ============================================================
+
+2026-03-29 15:55:56 | INFO     | ============================================================
+2026-03-29 15:55:56 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts/v-0p_rg_E9hY0-M_UgER7/items
+2026-03-29 15:55:56 | INFO     | REQUEST BODY: {
+  "productId": 4643,
+  "quantity": 2
+}
+2026-03-29 15:55:56 | INFO     | ============================================================
+2026-03-29 15:55:57 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:55:57 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "itemId": 822363846
+}
+2026-03-29 15:55:57 | INFO     | ============================================================
+
+2026-03-29 15:55:57 | INFO     | Created cart v-0p_rg_E9hY0-M_UgER7 with item
+2026-03-29 15:55:57 | INFO     | Test: Get All Orders
+2026-03-29 15:55:57 | INFO     | ============================================================
+2026-03-29 15:55:57 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/orders
+2026-03-29 15:55:57 | INFO     | REQUEST BODY: {
+  "cartId": "v-0p_rg_E9hY0-M_UgER7",
+  "customerName": "Test Customer"
+}
+2026-03-29 15:55:57 | INFO     | ============================================================
+2026-03-29 15:55:58 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:55:58 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "orderId": "lZK06fV4JQErcnp2Wzniv"
+}
+2026-03-29 15:55:58 | INFO     | ============================================================
+
+2026-03-29 15:55:58 | INFO     | ============================================================
+2026-03-29 15:55:58 | INFO     | REQUEST: GET https://simple-grocery-store-api.click/orders
+2026-03-29 15:55:58 | INFO     | ============================================================
+2026-03-29 15:55:59 | INFO     | RESPONSE STATUS: 200 OK
+2026-03-29 15:55:59 | INFO     | RESPONSE BODY: [
+  {
+    "id": "lZK06fV4JQErcnp2Wzniv",
+    "items": [
+      {
+        "productId": 4643,
+        "id": 822363846,
+        "quantity": 2
+      }
+    ],
+    "customerName": "Test Customer",
+    "created": "2026-03-29T10:25:58.116Z",
+    "comment": ""
+  }
+]
+2026-03-29 15:55:59 | INFO     | ============================================================
+
+2026-03-29 15:55:59 | INFO     | Retrieved 1 orders
+2026-03-29 15:55:59 | INFO     | TEST PASSED: tests/test_orders.py::TestOrderWorkflow::test_get_all_orders
+2026-03-29 15:55:59 | INFO     | ============================================================
+2026-03-29 15:55:59 | INFO     | REQUEST: DELETE https://simple-grocery-store-api.click/orders/lZK06fV4JQErcnp2Wzniv
+2026-03-29 15:55:59 | INFO     | ============================================================
+2026-03-29 15:55:59 | INFO     | RESPONSE STATUS: 204 No Content
+2026-03-29 15:55:59 | INFO     | RESPONSE BODY: 
+2026-03-29 15:55:59 | INFO     | ============================================================
+
+2026-03-29 15:55:59 | INFO     | Cleaned up order: lZK06fV4JQErcnp2Wzniv
+2026-03-29 15:55:59 | INFO     | ######################################################################
+2026-03-29 15:55:59 | INFO     | COMPLETED TEST: tests/test_orders.py::TestOrderWorkflow::test_get_all_orders
+2026-03-29 15:55:59 | INFO     | ######################################################################
+
+2026-03-29 15:55:59 | INFO     | 
+######################################################################
+2026-03-29 15:55:59 | INFO     | STARTING TEST: tests/test_orders.py::TestOrderWorkflow::test_get_single_order
+2026-03-29 15:55:59 | INFO     | ######################################################################
+2026-03-29 15:55:59 | INFO     | API Client initialized with base URL: https://simple-grocery-store-api.click
+2026-03-29 15:55:59 | INFO     | ============================================================
+2026-03-29 15:55:59 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/api-clients
+2026-03-29 15:55:59 | INFO     | REQUEST BODY: {
+  "clientName": "Order Test 4431bef0",
+  "clientEmail": "order_test_4431bef0@example.com"
+}
+2026-03-29 15:55:59 | INFO     | ============================================================
+2026-03-29 15:56:00 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:00 | INFO     | RESPONSE BODY: {
+  "accessToken": "f74688de7b0d1f8060dabbaad75cefbc51d3bd0b4fa5c6533de2619cd9f8abb2"
+}
+2026-03-29 15:56:00 | INFO     | ============================================================
+
+2026-03-29 15:56:00 | INFO     | Authorization token set successfully
+2026-03-29 15:56:00 | INFO     | Registered new client for order test
+2026-03-29 15:56:00 | INFO     | ============================================================
+2026-03-29 15:56:00 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts
+2026-03-29 15:56:00 | INFO     | ============================================================
+2026-03-29 15:56:01 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:01 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "cartId": "_rRzPTV3LUZZOkW-jZVix"
+}
+2026-03-29 15:56:01 | INFO     | ============================================================
+
+2026-03-29 15:56:01 | INFO     | ============================================================
+2026-03-29 15:56:01 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts/_rRzPTV3LUZZOkW-jZVix/items
+2026-03-29 15:56:01 | INFO     | REQUEST BODY: {
+  "productId": 4643,
+  "quantity": 2
+}
+2026-03-29 15:56:01 | INFO     | ============================================================
+2026-03-29 15:56:02 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:02 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "itemId": 154098921
+}
+2026-03-29 15:56:02 | INFO     | ============================================================
+
+2026-03-29 15:56:02 | INFO     | Created cart _rRzPTV3LUZZOkW-jZVix with item
+2026-03-29 15:56:02 | INFO     | Test: Get Single Order
+2026-03-29 15:56:02 | INFO     | ============================================================
+2026-03-29 15:56:02 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/orders
+2026-03-29 15:56:02 | INFO     | REQUEST BODY: {
+  "cartId": "_rRzPTV3LUZZOkW-jZVix",
+  "customerName": "Test Customer"
+}
+2026-03-29 15:56:02 | INFO     | ============================================================
+2026-03-29 15:56:03 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:03 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "orderId": "mnljcvQ69eoacqF7vfPUZ"
+}
+2026-03-29 15:56:03 | INFO     | ============================================================
+
+2026-03-29 15:56:03 | INFO     | ============================================================
+2026-03-29 15:56:03 | INFO     | REQUEST: GET https://simple-grocery-store-api.click/orders/mnljcvQ69eoacqF7vfPUZ
+2026-03-29 15:56:03 | INFO     | ============================================================
+2026-03-29 15:56:04 | INFO     | RESPONSE STATUS: 200 OK
+2026-03-29 15:56:04 | INFO     | RESPONSE BODY: {
+  "id": "mnljcvQ69eoacqF7vfPUZ",
+  "items": [
+    {
+      "productId": 4643,
+      "id": 154098921,
+      "quantity": 2
+    }
+  ],
+  "customerName": "Test Customer",
+  "created": "2026-03-29T10:26:03.779Z",
+  "comment": ""
+}
+2026-03-29 15:56:04 | INFO     | ============================================================
+
+2026-03-29 15:56:04 | INFO     | Retrieved order: mnljcvQ69eoacqF7vfPUZ
+2026-03-29 15:56:04 | INFO     | TEST PASSED: tests/test_orders.py::TestOrderWorkflow::test_get_single_order
+2026-03-29 15:56:04 | INFO     | ######################################################################
+2026-03-29 15:56:04 | INFO     | COMPLETED TEST: tests/test_orders.py::TestOrderWorkflow::test_get_single_order
+2026-03-29 15:56:04 | INFO     | ######################################################################
+
+2026-03-29 15:56:04 | INFO     | 
+######################################################################
+2026-03-29 15:56:04 | INFO     | STARTING TEST: tests/test_orders.py::TestOrderWorkflow::test_update_order
+2026-03-29 15:56:04 | INFO     | ######################################################################
+2026-03-29 15:56:04 | INFO     | API Client initialized with base URL: https://simple-grocery-store-api.click
+2026-03-29 15:56:04 | INFO     | ============================================================
+2026-03-29 15:56:04 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/api-clients
+2026-03-29 15:56:04 | INFO     | REQUEST BODY: {
+  "clientName": "Order Test 44ad184b",
+  "clientEmail": "order_test_44ad184b@example.com"
+}
+2026-03-29 15:56:04 | INFO     | ============================================================
+2026-03-29 15:56:05 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:05 | INFO     | RESPONSE BODY: {
+  "accessToken": "7904b16491d57a2a8ca37a0ec5e71de70af3927db921c1168e9c169ec2a5f1e3"
+}
+2026-03-29 15:56:05 | INFO     | ============================================================
+
+2026-03-29 15:56:05 | INFO     | Authorization token set successfully
+2026-03-29 15:56:05 | INFO     | Registered new client for order test
+2026-03-29 15:56:05 | INFO     | ============================================================
+2026-03-29 15:56:05 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts
+2026-03-29 15:56:05 | INFO     | ============================================================
+2026-03-29 15:56:06 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:06 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "cartId": "jEa7tBTxU6bXZwJSH8ypa"
+}
+2026-03-29 15:56:06 | INFO     | ============================================================
+
+2026-03-29 15:56:06 | INFO     | ============================================================
+2026-03-29 15:56:06 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts/jEa7tBTxU6bXZwJSH8ypa/items
+2026-03-29 15:56:06 | INFO     | REQUEST BODY: {
+  "productId": 4643,
+  "quantity": 2
+}
+2026-03-29 15:56:06 | INFO     | ============================================================
+2026-03-29 15:56:07 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:07 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "itemId": 41636705
+}
+2026-03-29 15:56:07 | INFO     | ============================================================
+
+2026-03-29 15:56:07 | INFO     | Created cart jEa7tBTxU6bXZwJSH8ypa with item
+2026-03-29 15:56:07 | INFO     | Test: Update Order
+2026-03-29 15:56:07 | INFO     | ============================================================
+2026-03-29 15:56:07 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/orders
+2026-03-29 15:56:07 | INFO     | REQUEST BODY: {
+  "cartId": "jEa7tBTxU6bXZwJSH8ypa",
+  "customerName": "Original Name"
+}
+2026-03-29 15:56:07 | INFO     | ============================================================
+2026-03-29 15:56:09 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:09 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "orderId": "1lKTUU0977M_dwnc5O6Nn"
+}
+2026-03-29 15:56:09 | INFO     | ============================================================
+
+2026-03-29 15:56:09 | INFO     | ============================================================
+2026-03-29 15:56:09 | INFO     | REQUEST: PATCH https://simple-grocery-store-api.click/orders/1lKTUU0977M_dwnc5O6Nn
+2026-03-29 15:56:09 | INFO     | REQUEST BODY: {
+  "customerName": "Updated Name",
+  "comment": "Updated comment"
+}
+2026-03-29 15:56:09 | INFO     | ============================================================
+2026-03-29 15:56:09 | INFO     | RESPONSE STATUS: 204 No Content
+2026-03-29 15:56:09 | INFO     | RESPONSE BODY: 
+2026-03-29 15:56:09 | INFO     | ============================================================
+
+2026-03-29 15:56:09 | INFO     | ============================================================
+2026-03-29 15:56:09 | INFO     | REQUEST: GET https://simple-grocery-store-api.click/orders/1lKTUU0977M_dwnc5O6Nn
+2026-03-29 15:56:09 | INFO     | ============================================================
+2026-03-29 15:56:10 | INFO     | RESPONSE STATUS: 200 OK
+2026-03-29 15:56:10 | INFO     | RESPONSE BODY: {
+  "id": "1lKTUU0977M_dwnc5O6Nn",
+  "items": [
+    {
+      "productId": 4643,
+      "id": 41636705,
+      "quantity": 2
+    }
+  ],
+  "customerName": "Updated Name",
+  "created": "2026-03-29T10:26:08.934Z",
+  "comment": "Updated comment"
+}
+2026-03-29 15:56:10 | INFO     | ============================================================
+
+2026-03-29 15:56:10 | INFO     | Order updated successfully: 1lKTUU0977M_dwnc5O6Nn
+2026-03-29 15:56:10 | INFO     | TEST PASSED: tests/test_orders.py::TestOrderWorkflow::test_update_order
+2026-03-29 15:56:10 | INFO     | ######################################################################
+2026-03-29 15:56:10 | INFO     | COMPLETED TEST: tests/test_orders.py::TestOrderWorkflow::test_update_order
+2026-03-29 15:56:10 | INFO     | ######################################################################
+
+2026-03-29 15:56:10 | INFO     | 
+######################################################################
+2026-03-29 15:56:10 | INFO     | STARTING TEST: tests/test_orders.py::TestOrderWorkflow::test_delete_order
+2026-03-29 15:56:10 | INFO     | ######################################################################
+2026-03-29 15:56:10 | INFO     | API Client initialized with base URL: https://simple-grocery-store-api.click
+2026-03-29 15:56:10 | INFO     | ============================================================
+2026-03-29 15:56:10 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/api-clients
+2026-03-29 15:56:10 | INFO     | REQUEST BODY: {
+  "clientName": "Order Test bc5ede6d",
+  "clientEmail": "order_test_bc5ede6d@example.com"
+}
+2026-03-29 15:56:10 | INFO     | ============================================================
+2026-03-29 15:56:11 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:11 | INFO     | RESPONSE BODY: {
+  "accessToken": "9059dd70920789b543acb4e3fe1999dbf4a3d75b3c97fbd839d8d9553458d67c"
+}
+2026-03-29 15:56:11 | INFO     | ============================================================
+
+2026-03-29 15:56:11 | INFO     | Authorization token set successfully
+2026-03-29 15:56:11 | INFO     | Registered new client for order test
+2026-03-29 15:56:11 | INFO     | ============================================================
+2026-03-29 15:56:11 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts
+2026-03-29 15:56:11 | INFO     | ============================================================
+2026-03-29 15:56:12 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:12 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "cartId": "cStQgqljgKW1YcbGD71nA"
+}
+2026-03-29 15:56:12 | INFO     | ============================================================
+
+2026-03-29 15:56:12 | INFO     | ============================================================
+2026-03-29 15:56:12 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts/cStQgqljgKW1YcbGD71nA/items
+2026-03-29 15:56:12 | INFO     | REQUEST BODY: {
+  "productId": 4643,
+  "quantity": 2
+}
+2026-03-29 15:56:12 | INFO     | ============================================================
+2026-03-29 15:56:13 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:13 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "itemId": 872038000
+}
+2026-03-29 15:56:13 | INFO     | ============================================================
+
+2026-03-29 15:56:13 | INFO     | Created cart cStQgqljgKW1YcbGD71nA with item
+2026-03-29 15:56:13 | INFO     | Test: Delete Order
+2026-03-29 15:56:13 | INFO     | ============================================================
+2026-03-29 15:56:13 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/orders
+2026-03-29 15:56:13 | INFO     | REQUEST BODY: {
+  "cartId": "cStQgqljgKW1YcbGD71nA",
+  "customerName": "Delete Test"
+}
+2026-03-29 15:56:13 | INFO     | ============================================================
+2026-03-29 15:56:14 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:14 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "orderId": "Tn2AkDm2MCaHeCJ1UtGfH"
+}
+2026-03-29 15:56:14 | INFO     | ============================================================
+
+2026-03-29 15:56:14 | INFO     | ============================================================
+2026-03-29 15:56:14 | INFO     | REQUEST: DELETE https://simple-grocery-store-api.click/orders/Tn2AkDm2MCaHeCJ1UtGfH
+2026-03-29 15:56:14 | INFO     | ============================================================
+2026-03-29 15:56:15 | INFO     | RESPONSE STATUS: 204 No Content
+2026-03-29 15:56:15 | INFO     | RESPONSE BODY: 
+2026-03-29 15:56:15 | INFO     | ============================================================
+
+2026-03-29 15:56:15 | INFO     | ============================================================
+2026-03-29 15:56:15 | INFO     | REQUEST: GET https://simple-grocery-store-api.click/orders/Tn2AkDm2MCaHeCJ1UtGfH
+2026-03-29 15:56:15 | INFO     | ============================================================
+2026-03-29 15:56:16 | INFO     | RESPONSE STATUS: 404 Not Found
+2026-03-29 15:56:16 | INFO     | RESPONSE BODY: {
+  "error": "No order with id Tn2AkDm2MCaHeCJ1UtGfH."
+}
+2026-03-29 15:56:16 | INFO     | ============================================================
+
+2026-03-29 15:56:16 | INFO     | Order deleted successfully: Tn2AkDm2MCaHeCJ1UtGfH
+2026-03-29 15:56:16 | INFO     | TEST PASSED: tests/test_orders.py::TestOrderWorkflow::test_delete_order
+2026-03-29 15:56:16 | INFO     | ######################################################################
+2026-03-29 15:56:16 | INFO     | COMPLETED TEST: tests/test_orders.py::TestOrderWorkflow::test_delete_order
+2026-03-29 15:56:16 | INFO     | ######################################################################
+
+2026-03-29 15:56:16 | INFO     | 
+######################################################################
+2026-03-29 15:56:16 | INFO     | STARTING TEST: tests/test_orders.py::TestOrderWorkflow::test_unauthorized_access
+2026-03-29 15:56:16 | INFO     | ######################################################################
+2026-03-29 15:56:16 | INFO     | API Client initialized with base URL: https://simple-grocery-store-api.click
+2026-03-29 15:56:16 | INFO     | ============================================================
+2026-03-29 15:56:16 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/api-clients
+2026-03-29 15:56:16 | INFO     | REQUEST BODY: {
+  "clientName": "Order Test 2ba385a8",
+  "clientEmail": "order_test_2ba385a8@example.com"
+}
+2026-03-29 15:56:16 | INFO     | ============================================================
+2026-03-29 15:56:18 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:18 | INFO     | RESPONSE BODY: {
+  "accessToken": "dcc77a2ef0676ae8a9429df6eb078da35cd20b3d93f1c2beafef65bfa166d849"
+}
+2026-03-29 15:56:18 | INFO     | ============================================================
+
+2026-03-29 15:56:18 | INFO     | Authorization token set successfully
+2026-03-29 15:56:18 | INFO     | Registered new client for order test
+2026-03-29 15:56:18 | INFO     | ============================================================
+2026-03-29 15:56:18 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts
+2026-03-29 15:56:18 | INFO     | ============================================================
+2026-03-29 15:56:19 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:19 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "cartId": "-DdqX1B7jcotz9tdTYrGx"
+}
+2026-03-29 15:56:19 | INFO     | ============================================================
+
+2026-03-29 15:56:19 | INFO     | ============================================================
+2026-03-29 15:56:19 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts/-DdqX1B7jcotz9tdTYrGx/items
+2026-03-29 15:56:19 | INFO     | REQUEST BODY: {
+  "productId": 4643,
+  "quantity": 2
+}
+2026-03-29 15:56:19 | INFO     | ============================================================
+2026-03-29 15:56:20 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:20 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "itemId": 437978702
+}
+2026-03-29 15:56:20 | INFO     | ============================================================
+
+2026-03-29 15:56:20 | INFO     | Created cart -DdqX1B7jcotz9tdTYrGx with item
+2026-03-29 15:56:20 | INFO     | Test: Unauthorized Access
+2026-03-29 15:56:20 | INFO     | API Client initialized with base URL: https://simple-grocery-store-api.click
+2026-03-29 15:56:20 | INFO     | ============================================================
+2026-03-29 15:56:20 | INFO     | REQUEST: GET https://simple-grocery-store-api.click/orders
+2026-03-29 15:56:20 | INFO     | ============================================================
+2026-03-29 15:56:21 | INFO     | RESPONSE STATUS: 401 Unauthorized
+2026-03-29 15:56:21 | INFO     | RESPONSE BODY: {
+  "error": "Missing Authorization header."
+}
+2026-03-29 15:56:21 | INFO     | ============================================================
+
+2026-03-29 15:56:21 | INFO     | Unauthorized request correctly rejected with 401
+2026-03-29 15:56:21 | INFO     | TEST PASSED: tests/test_orders.py::TestOrderWorkflow::test_unauthorized_access
+2026-03-29 15:56:21 | INFO     | ######################################################################
+2026-03-29 15:56:21 | INFO     | COMPLETED TEST: tests/test_orders.py::TestOrderWorkflow::test_unauthorized_access
+2026-03-29 15:56:21 | INFO     | ######################################################################
+
+2026-03-29 15:56:21 | INFO     | 
+######################################################################
+2026-03-29 15:56:21 | INFO     | STARTING TEST: tests/test_products.py::TestGetProducts::test_get_all_products
+2026-03-29 15:56:21 | INFO     | ######################################################################
+2026-03-29 15:56:21 | INFO     | API Client initialized with base URL: https://simple-grocery-store-api.click
+2026-03-29 15:56:21 | INFO     | APIClient initialized for test
+2026-03-29 15:56:21 | INFO     | Test: Get All Products
+2026-03-29 15:56:21 | INFO     | ============================================================
+2026-03-29 15:56:21 | INFO     | REQUEST: GET https://simple-grocery-store-api.click/products
+2026-03-29 15:56:21 | INFO     | ============================================================
+2026-03-29 15:56:22 | INFO     | RESPONSE STATUS: 200 OK
+2026-03-29 15:56:22 | INFO     | RESPONSE BODY: [
+  {
+    "id": 1225,
+    "category": "fresh-produce",
+    "name": "1/2 in. Brushless Hammer Drill",
+    "inStock": true
+  },
+  {
+    "id": 1709,
+    "category": "meat-seafood",
+    "name": "Beef Choice Angus Ribeye Steak",
+    "inStock": true
+  },
+  {
+    "id": 1710,
+    "category": "meat-seafood",
+    "name": "Angus Steak Burgers",
+    "inStock": true
+  },
+  {
+    "id": 2177,
+    "category": "meat-seafood",
+    "name": "Cosco Three Step Steel Platform",
+    "inStock": true
+  },
+  {
+    "id": 2585,
+    "category": "fresh-produce",
+    "name": "Green Cabbage Organic",
+    "inStock": true
+  },
+  {
+    "id": 3486,
+    "category": "bread-bakery",
+    "name": "French Bread",
+    "inStock": true
+  },
+  {
+    "id": 3674,
+    "category": "fresh-produce",
+    "name": "20V Max Cordless Drill Combo Kit",
+    "inStock": true
+  },
+  {
+    "id": 4641,
+    "category": "coffee",
+    "name": "Don Francisco Colombia Supremo Medium Roast",
+    "inStock": true
+  },
+  {
+    "id": 4643,
+    "category": "coffee",
+    "name": "Starbucks Coffee Variety Pack, 100% Arabica",
+    "inStock": true
+  },
+  {
+    "id": 4646,
+    "category": "coffee",
+    "name": "Ethical Bean Medium Dark Roast, Espresso",
+    "inStock": true
+  },
+  {
+    "id": 4875,
+    "category": "bread-bakery",
+    "name": "2800 Watt Inverter Generator",
+    "inStock": true
+  },
+  {
+    "id": 5477,
+    "category": "dairy",
+    "name": "Cream Cheese",
+    "inStock": true
+  },
+  {
+    "id": 5478,
+    "category": "dairy",
+    "name": "Low Fat Vanilla Yogurt",
+    "inStock": true
+  },
+  {
+    "id": 5499,
+    "category": "bread-bakery",
+    "name": "Sourdough Bread",
+    "inStock": true
+  },
+  {
+    "id": 5774,
+    "category": "candy",
+    "name": "HERSHEY'S, Milk Chocolate Almond",
+    "inStock": true
+  },
+  {
+    "id": 5851,
+    "category": "fresh-produce",
+    "name": "Cucumber Organic",
+    "inStock": false
+  },
+  {
+    "id": 6483,
+    "category": "candy",
+    "name": "Cadbury Milk Chocolate",
+    "inStock": true
+  },
+  {
+    "id": 6543,
+    "category": "bread-bakery",
+    "name": "Flour Tortillas",
+    "inStock": false
+  },
+  {
+    "id": 7395,
+    "category": "meat-seafood",
+    "name": "Boneless Skinless Chicken Breasts",
+    "inStock": true
+  },
+  {
+    "id": 8554,
+    "category": "candy",
+    "name": "Kinder Joy Eggs",
+    "inStock": true
+  }
+]
+2026-03-29 15:56:22 | INFO     | ============================================================
+
+2026-03-29 15:56:22 | INFO     | Successfully retrieved 20 products
+2026-03-29 15:56:22 | INFO     | TEST PASSED: tests/test_products.py::TestGetProducts::test_get_all_products
+2026-03-29 15:56:22 | INFO     | ######################################################################
+2026-03-29 15:56:22 | INFO     | COMPLETED TEST: tests/test_products.py::TestGetProducts::test_get_all_products
+2026-03-29 15:56:22 | INFO     | ######################################################################
+
+2026-03-29 15:56:22 | INFO     | 
+######################################################################
+2026-03-29 15:56:22 | INFO     | STARTING TEST: tests/test_products.py::TestGetProducts::test_get_products_by_category
+2026-03-29 15:56:22 | INFO     | ######################################################################
+2026-03-29 15:56:22 | INFO     | API Client initialized with base URL: https://simple-grocery-store-api.click
+2026-03-29 15:56:22 | INFO     | APIClient initialized for test
+2026-03-29 15:56:22 | INFO     | Test: Get Products by Category - coffee
+2026-03-29 15:56:22 | INFO     | ============================================================
+2026-03-29 15:56:22 | INFO     | REQUEST: GET https://simple-grocery-store-api.click/products
+2026-03-29 15:56:22 | INFO     | QUERY PARAMS: {
+  "category": "coffee"
+}
+2026-03-29 15:56:22 | INFO     | ============================================================
+2026-03-29 15:56:23 | INFO     | RESPONSE STATUS: 200 OK
+2026-03-29 15:56:23 | INFO     | RESPONSE BODY: [
+  {
+    "id": 4641,
+    "category": "coffee",
+    "name": "Don Francisco Colombia Supremo Medium Roast",
+    "inStock": true
+  },
+  {
+    "id": 4643,
+    "category": "coffee",
+    "name": "Starbucks Coffee Variety Pack, 100% Arabica",
+    "inStock": true
+  },
+  {
+    "id": 4646,
+    "category": "coffee",
+    "name": "Ethical Bean Medium Dark Roast, Espresso",
+    "inStock": true
+  }
+]
+2026-03-29 15:56:23 | INFO     | ============================================================
+
+2026-03-29 15:56:23 | INFO     | Successfully retrieved 3 products in coffee
+2026-03-29 15:56:23 | INFO     | TEST PASSED: tests/test_products.py::TestGetProducts::test_get_products_by_category
+2026-03-29 15:56:23 | INFO     | ######################################################################
+2026-03-29 15:56:23 | INFO     | COMPLETED TEST: tests/test_products.py::TestGetProducts::test_get_products_by_category
+2026-03-29 15:56:23 | INFO     | ######################################################################
+
+2026-03-29 15:56:23 | INFO     | 
+######################################################################
+2026-03-29 15:56:23 | INFO     | STARTING TEST: tests/test_products.py::TestGetProducts::test_get_products_with_limit
+2026-03-29 15:56:23 | INFO     | ######################################################################
+2026-03-29 15:56:23 | INFO     | API Client initialized with base URL: https://simple-grocery-store-api.click
+2026-03-29 15:56:23 | INFO     | APIClient initialized for test
+2026-03-29 15:56:23 | INFO     | Test: Get Products with Limit - 5
+2026-03-29 15:56:23 | INFO     | ============================================================
+2026-03-29 15:56:23 | INFO     | REQUEST: GET https://simple-grocery-store-api.click/products
+2026-03-29 15:56:23 | INFO     | QUERY PARAMS: {
+  "results": 5
+}
+2026-03-29 15:56:23 | INFO     | ============================================================
+2026-03-29 15:56:24 | INFO     | RESPONSE STATUS: 200 OK
+2026-03-29 15:56:24 | INFO     | RESPONSE BODY: [
+  {
+    "id": 1225,
+    "category": "fresh-produce",
+    "name": "1/2 in. Brushless Hammer Drill",
+    "inStock": true
+  },
+  {
+    "id": 1709,
+    "category": "meat-seafood",
+    "name": "Beef Choice Angus Ribeye Steak",
+    "inStock": true
+  },
+  {
+    "id": 1710,
+    "category": "meat-seafood",
+    "name": "Angus Steak Burgers",
+    "inStock": true
+  },
+  {
+    "id": 2177,
+    "category": "meat-seafood",
+    "name": "Cosco Three Step Steel Platform",
+    "inStock": true
+  },
+  {
+    "id": 2585,
+    "category": "fresh-produce",
+    "name": "Green Cabbage Organic",
+    "inStock": true
+  }
+]
+2026-03-29 15:56:24 | INFO     | ============================================================
+
+2026-03-29 15:56:24 | INFO     | Successfully retrieved 5 products (limit: 5)
+2026-03-29 15:56:24 | INFO     | TEST PASSED: tests/test_products.py::TestGetProducts::test_get_products_with_limit
+2026-03-29 15:56:24 | INFO     | ######################################################################
+2026-03-29 15:56:24 | INFO     | COMPLETED TEST: tests/test_products.py::TestGetProducts::test_get_products_with_limit
+2026-03-29 15:56:24 | INFO     | ######################################################################
+
+2026-03-29 15:56:24 | INFO     | 
+######################################################################
+2026-03-29 15:56:24 | INFO     | STARTING TEST: tests/test_products.py::TestGetProducts::test_get_single_product
+2026-03-29 15:56:24 | INFO     | ######################################################################
+2026-03-29 15:56:24 | INFO     | API Client initialized with base URL: https://simple-grocery-store-api.click
+2026-03-29 15:56:24 | INFO     | APIClient initialized for test
+2026-03-29 15:56:24 | INFO     | Test: Get Single Product - ID: 4643
+2026-03-29 15:56:24 | INFO     | ============================================================
+2026-03-29 15:56:24 | INFO     | REQUEST: GET https://simple-grocery-store-api.click/products/4643
+2026-03-29 15:56:24 | INFO     | ============================================================
+2026-03-29 15:56:25 | INFO     | RESPONSE STATUS: 200 OK
+2026-03-29 15:56:25 | INFO     | RESPONSE BODY: {
+  "id": 4643,
+  "category": "coffee",
+  "name": "Starbucks Coffee Variety Pack, 100% Arabica",
+  "manufacturer": "Starbucks",
+  "price": 40.91,
+  "current-stock": 14,
+  "inStock": true
+}
+2026-03-29 15:56:25 | INFO     | ============================================================
+
+2026-03-29 15:56:25 | INFO     | Successfully retrieved product: Starbucks Coffee Variety Pack, 100% Arabica
+2026-03-29 15:56:25 | INFO     | TEST PASSED: tests/test_products.py::TestGetProducts::test_get_single_product
+2026-03-29 15:56:25 | INFO     | ######################################################################
+2026-03-29 15:56:25 | INFO     | COMPLETED TEST: tests/test_products.py::TestGetProducts::test_get_single_product
+2026-03-29 15:56:25 | INFO     | ######################################################################
+
+2026-03-29 15:56:25 | INFO     | 
+######################################################################
+2026-03-29 15:56:25 | INFO     | STARTING TEST: tests/test_products.py::TestGetProducts::test_get_product_not_found
+2026-03-29 15:56:25 | INFO     | ######################################################################
+2026-03-29 15:56:25 | INFO     | API Client initialized with base URL: https://simple-grocery-store-api.click
+2026-03-29 15:56:25 | INFO     | APIClient initialized for test
+2026-03-29 15:56:25 | INFO     | Test: Get Product Not Found - ID: 999999
+2026-03-29 15:56:25 | INFO     | ============================================================
+2026-03-29 15:56:25 | INFO     | REQUEST: GET https://simple-grocery-store-api.click/products/999999
+2026-03-29 15:56:25 | INFO     | ============================================================
+2026-03-29 15:56:26 | INFO     | RESPONSE STATUS: 404 Not Found
+2026-03-29 15:56:26 | INFO     | RESPONSE BODY: {
+  "error": "No product with id 999999."
+}
+2026-03-29 15:56:26 | INFO     | ============================================================
+
+2026-03-29 15:56:26 | INFO     | Correctly returned 404 for non-existent product
+2026-03-29 15:56:26 | INFO     | TEST PASSED: tests/test_products.py::TestGetProducts::test_get_product_not_found
+2026-03-29 15:56:26 | INFO     | ######################################################################
+2026-03-29 15:56:26 | INFO     | COMPLETED TEST: tests/test_products.py::TestGetProducts::test_get_product_not_found
+2026-03-29 15:56:26 | INFO     | ######################################################################
+
+2026-03-29 15:56:26 | INFO     | 
+######################################################################
+2026-03-29 15:56:26 | INFO     | STARTING TEST: tests/test_products.py::TestAPIStatus::test_api_status
+2026-03-29 15:56:26 | INFO     | ######################################################################
+2026-03-29 15:56:26 | INFO     | API Client initialized with base URL: https://simple-grocery-store-api.click
+2026-03-29 15:56:26 | INFO     | Test: API Status Check
+2026-03-29 15:56:26 | INFO     | ============================================================
+2026-03-29 15:56:26 | INFO     | REQUEST: GET https://simple-grocery-store-api.click/status
+2026-03-29 15:56:26 | INFO     | ============================================================
+2026-03-29 15:56:27 | INFO     | RESPONSE STATUS: 200 OK
+2026-03-29 15:56:27 | INFO     | RESPONSE BODY: {
+  "status": "UP"
+}
+2026-03-29 15:56:27 | INFO     | ============================================================
+
+2026-03-29 15:56:27 | INFO     | API is UP and running
+2026-03-29 15:56:27 | INFO     | TEST PASSED: tests/test_products.py::TestAPIStatus::test_api_status
+2026-03-29 15:56:27 | INFO     | ######################################################################
+2026-03-29 15:56:27 | INFO     | COMPLETED TEST: tests/test_products.py::TestAPIStatus::test_api_status
+2026-03-29 15:56:27 | INFO     | ######################################################################
+
+2026-03-29 15:56:27 | INFO     | 
+######################################################################
+2026-03-29 15:56:27 | INFO     | STARTING TEST: tests/test_products.py::TestCartCRUDOperations::test_post_create_cart
+2026-03-29 15:56:27 | INFO     | ######################################################################
+2026-03-29 15:56:27 | INFO     | API Client initialized with base URL: https://simple-grocery-store-api.click
+2026-03-29 15:56:27 | INFO     | Test: POST - Create Cart
+2026-03-29 15:56:27 | INFO     | ============================================================
+2026-03-29 15:56:27 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts
+2026-03-29 15:56:27 | INFO     | ============================================================
+2026-03-29 15:56:28 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:28 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "cartId": "KRqeZogqvImE4PLasA7Xg"
+}
+2026-03-29 15:56:28 | INFO     | ============================================================
+
+2026-03-29 15:56:28 | INFO     | Successfully created cart: KRqeZogqvImE4PLasA7Xg
+2026-03-29 15:56:28 | INFO     | TEST PASSED: tests/test_products.py::TestCartCRUDOperations::test_post_create_cart
+2026-03-29 15:56:28 | INFO     | ######################################################################
+2026-03-29 15:56:28 | INFO     | COMPLETED TEST: tests/test_products.py::TestCartCRUDOperations::test_post_create_cart
+2026-03-29 15:56:28 | INFO     | ######################################################################
+
+2026-03-29 15:56:28 | INFO     | 
+######################################################################
+2026-03-29 15:56:28 | INFO     | STARTING TEST: tests/test_products.py::TestCartCRUDOperations::test_post_add_item_to_cart
+2026-03-29 15:56:28 | INFO     | ######################################################################
+2026-03-29 15:56:28 | INFO     | API Client initialized with base URL: https://simple-grocery-store-api.click
+2026-03-29 15:56:28 | INFO     | Test: POST - Add Item to Cart
+2026-03-29 15:56:28 | INFO     | ============================================================
+2026-03-29 15:56:28 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts
+2026-03-29 15:56:28 | INFO     | ============================================================
+2026-03-29 15:56:29 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:29 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "cartId": "H-MzlC6eHMY6-lQfJvCxP"
+}
+2026-03-29 15:56:29 | INFO     | ============================================================
+
+2026-03-29 15:56:29 | INFO     | Created cart: H-MzlC6eHMY6-lQfJvCxP
+2026-03-29 15:56:29 | INFO     | ============================================================
+2026-03-29 15:56:29 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts/H-MzlC6eHMY6-lQfJvCxP/items
+2026-03-29 15:56:29 | INFO     | REQUEST BODY: {
+  "productId": 4643,
+  "quantity": 2
+}
+2026-03-29 15:56:29 | INFO     | ============================================================
+2026-03-29 15:56:30 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:30 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "itemId": 377627350
+}
+2026-03-29 15:56:30 | INFO     | ============================================================
+
+2026-03-29 15:56:30 | INFO     | Successfully added item to cart. Item ID: 377627350
+2026-03-29 15:56:30 | INFO     | TEST PASSED: tests/test_products.py::TestCartCRUDOperations::test_post_add_item_to_cart
+2026-03-29 15:56:30 | INFO     | ######################################################################
+2026-03-29 15:56:30 | INFO     | COMPLETED TEST: tests/test_products.py::TestCartCRUDOperations::test_post_add_item_to_cart
+2026-03-29 15:56:30 | INFO     | ######################################################################
+
+2026-03-29 15:56:30 | INFO     | 
+######################################################################
+2026-03-29 15:56:30 | INFO     | STARTING TEST: tests/test_products.py::TestCartCRUDOperations::test_get_cart_details
+2026-03-29 15:56:30 | INFO     | ######################################################################
+2026-03-29 15:56:30 | INFO     | API Client initialized with base URL: https://simple-grocery-store-api.click
+2026-03-29 15:56:30 | INFO     | Test: GET - Cart Details
+2026-03-29 15:56:30 | INFO     | ============================================================
+2026-03-29 15:56:30 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts
+2026-03-29 15:56:30 | INFO     | ============================================================
+2026-03-29 15:56:31 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:31 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "cartId": "j5NA7A6rpG_2NTkAx6DEK"
+}
+2026-03-29 15:56:31 | INFO     | ============================================================
+
+2026-03-29 15:56:31 | INFO     | ============================================================
+2026-03-29 15:56:31 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts/j5NA7A6rpG_2NTkAx6DEK/items
+2026-03-29 15:56:31 | INFO     | REQUEST BODY: {
+  "productId": 4643,
+  "quantity": 1
+}
+2026-03-29 15:56:31 | INFO     | ============================================================
+2026-03-29 15:56:32 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:32 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "itemId": 595927778
+}
+2026-03-29 15:56:32 | INFO     | ============================================================
+
+2026-03-29 15:56:32 | INFO     | ============================================================
+2026-03-29 15:56:32 | INFO     | REQUEST: GET https://simple-grocery-store-api.click/carts/j5NA7A6rpG_2NTkAx6DEK
+2026-03-29 15:56:32 | INFO     | ============================================================
+2026-03-29 15:56:33 | INFO     | RESPONSE STATUS: 200 OK
+2026-03-29 15:56:33 | INFO     | RESPONSE BODY: {
+  "items": [
+    {
+      "productId": 4643,
+      "id": 595927778,
+      "quantity": 1
+    }
+  ],
+  "created": "2026-03-29T10:26:31.360Z"
+}
+2026-03-29 15:56:33 | INFO     | ============================================================
+
+2026-03-29 15:56:33 | INFO     | Successfully retrieved cart details
+2026-03-29 15:56:33 | INFO     | TEST PASSED: tests/test_products.py::TestCartCRUDOperations::test_get_cart_details
+2026-03-29 15:56:33 | INFO     | ######################################################################
+2026-03-29 15:56:33 | INFO     | COMPLETED TEST: tests/test_products.py::TestCartCRUDOperations::test_get_cart_details
+2026-03-29 15:56:33 | INFO     | ######################################################################
+
+2026-03-29 15:56:33 | INFO     | 
+######################################################################
+2026-03-29 15:56:33 | INFO     | STARTING TEST: tests/test_products.py::TestCartCRUDOperations::test_get_cart_items
+2026-03-29 15:56:33 | INFO     | ######################################################################
+2026-03-29 15:56:33 | INFO     | API Client initialized with base URL: https://simple-grocery-store-api.click
+2026-03-29 15:56:33 | INFO     | Test: GET - Cart Items
+2026-03-29 15:56:33 | INFO     | ============================================================
+2026-03-29 15:56:33 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts
+2026-03-29 15:56:33 | INFO     | ============================================================
+2026-03-29 15:56:34 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:34 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "cartId": "IoOxirYgCY1t0XCbfl8S-"
+}
+2026-03-29 15:56:34 | INFO     | ============================================================
+
+2026-03-29 15:56:34 | INFO     | ============================================================
+2026-03-29 15:56:34 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts/IoOxirYgCY1t0XCbfl8S-/items
+2026-03-29 15:56:34 | INFO     | REQUEST BODY: {
+  "productId": 4643,
+  "quantity": 1
+}
+2026-03-29 15:56:34 | INFO     | ============================================================
+2026-03-29 15:56:35 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:35 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "itemId": 685715954
+}
+2026-03-29 15:56:35 | INFO     | ============================================================
+
+2026-03-29 15:56:35 | INFO     | ============================================================
+2026-03-29 15:56:35 | INFO     | REQUEST: GET https://simple-grocery-store-api.click/carts/IoOxirYgCY1t0XCbfl8S-/items
+2026-03-29 15:56:35 | INFO     | ============================================================
+2026-03-29 15:56:36 | INFO     | RESPONSE STATUS: 200 OK
+2026-03-29 15:56:36 | INFO     | RESPONSE BODY: [
+  {
+    "productId": 4643,
+    "id": 685715954,
+    "quantity": 1
+  }
+]
+2026-03-29 15:56:36 | INFO     | ============================================================
+
+2026-03-29 15:56:36 | INFO     | Successfully retrieved 1 items from cart
+2026-03-29 15:56:36 | INFO     | TEST PASSED: tests/test_products.py::TestCartCRUDOperations::test_get_cart_items
+2026-03-29 15:56:36 | INFO     | ######################################################################
+2026-03-29 15:56:36 | INFO     | COMPLETED TEST: tests/test_products.py::TestCartCRUDOperations::test_get_cart_items
+2026-03-29 15:56:36 | INFO     | ######################################################################
+
+2026-03-29 15:56:36 | INFO     | 
+######################################################################
+2026-03-29 15:56:36 | INFO     | STARTING TEST: tests/test_products.py::TestCartCRUDOperations::test_patch_modify_item_quantity
+2026-03-29 15:56:36 | INFO     | ######################################################################
+2026-03-29 15:56:36 | INFO     | API Client initialized with base URL: https://simple-grocery-store-api.click
+2026-03-29 15:56:36 | INFO     | Test: PATCH - Modify Item Quantity
+2026-03-29 15:56:36 | INFO     | ============================================================
+2026-03-29 15:56:36 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts
+2026-03-29 15:56:36 | INFO     | ============================================================
+2026-03-29 15:56:37 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:37 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "cartId": "mH4QmZqHmb3EMZZJdimWm"
+}
+2026-03-29 15:56:37 | INFO     | ============================================================
+
+2026-03-29 15:56:37 | INFO     | ============================================================
+2026-03-29 15:56:37 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts/mH4QmZqHmb3EMZZJdimWm/items
+2026-03-29 15:56:37 | INFO     | REQUEST BODY: {
+  "productId": 4643,
+  "quantity": 1
+}
+2026-03-29 15:56:37 | INFO     | ============================================================
+2026-03-29 15:56:38 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:38 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "itemId": 490435515
+}
+2026-03-29 15:56:38 | INFO     | ============================================================
+
+2026-03-29 15:56:38 | INFO     | ============================================================
+2026-03-29 15:56:38 | INFO     | REQUEST: PATCH https://simple-grocery-store-api.click/carts/mH4QmZqHmb3EMZZJdimWm/items/490435515
+2026-03-29 15:56:38 | INFO     | REQUEST BODY: {
+  "quantity": 5
+}
+2026-03-29 15:56:38 | INFO     | ============================================================
+2026-03-29 15:56:39 | INFO     | RESPONSE STATUS: 204 No Content
+2026-03-29 15:56:39 | INFO     | RESPONSE BODY: 
+2026-03-29 15:56:39 | INFO     | ============================================================
+
+2026-03-29 15:56:39 | INFO     | Successfully modified item quantity
+2026-03-29 15:56:39 | INFO     | TEST PASSED: tests/test_products.py::TestCartCRUDOperations::test_patch_modify_item_quantity
+2026-03-29 15:56:39 | INFO     | ######################################################################
+2026-03-29 15:56:39 | INFO     | COMPLETED TEST: tests/test_products.py::TestCartCRUDOperations::test_patch_modify_item_quantity
+2026-03-29 15:56:39 | INFO     | ######################################################################
+
+2026-03-29 15:56:39 | INFO     | 
+######################################################################
+2026-03-29 15:56:39 | INFO     | STARTING TEST: tests/test_products.py::TestCartCRUDOperations::test_put_replace_item
+2026-03-29 15:56:39 | INFO     | ######################################################################
+2026-03-29 15:56:39 | INFO     | API Client initialized with base URL: https://simple-grocery-store-api.click
+2026-03-29 15:56:39 | INFO     | Test: PUT - Replace Item
+2026-03-29 15:56:39 | INFO     | ============================================================
+2026-03-29 15:56:39 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts
+2026-03-29 15:56:39 | INFO     | ============================================================
+2026-03-29 15:56:40 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:40 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "cartId": "_Mx5wEqTOTOk-PIV_hQO9"
+}
+2026-03-29 15:56:40 | INFO     | ============================================================
+
+2026-03-29 15:56:40 | INFO     | ============================================================
+2026-03-29 15:56:40 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts/_Mx5wEqTOTOk-PIV_hQO9/items
+2026-03-29 15:56:40 | INFO     | REQUEST BODY: {
+  "productId": 4643,
+  "quantity": 1
+}
+2026-03-29 15:56:40 | INFO     | ============================================================
+2026-03-29 15:56:41 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:41 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "itemId": 138185136
+}
+2026-03-29 15:56:41 | INFO     | ============================================================
+
+2026-03-29 15:56:41 | INFO     | ============================================================
+2026-03-29 15:56:41 | INFO     | REQUEST: PUT https://simple-grocery-store-api.click/carts/_Mx5wEqTOTOk-PIV_hQO9/items/138185136
+2026-03-29 15:56:41 | INFO     | REQUEST BODY: {
+  "productId": 1709,
+  "quantity": 3
+}
+2026-03-29 15:56:41 | INFO     | ============================================================
+2026-03-29 15:56:42 | INFO     | RESPONSE STATUS: 204 No Content
+2026-03-29 15:56:42 | INFO     | RESPONSE BODY: 
+2026-03-29 15:56:42 | INFO     | ============================================================
+
+2026-03-29 15:56:42 | INFO     | Successfully replaced item in cart
+2026-03-29 15:56:42 | INFO     | TEST PASSED: tests/test_products.py::TestCartCRUDOperations::test_put_replace_item
+2026-03-29 15:56:42 | INFO     | ######################################################################
+2026-03-29 15:56:42 | INFO     | COMPLETED TEST: tests/test_products.py::TestCartCRUDOperations::test_put_replace_item
+2026-03-29 15:56:42 | INFO     | ######################################################################
+
+2026-03-29 15:56:42 | INFO     | 
+######################################################################
+2026-03-29 15:56:42 | INFO     | STARTING TEST: tests/test_products.py::TestCartCRUDOperations::test_delete_item_from_cart
+2026-03-29 15:56:42 | INFO     | ######################################################################
+2026-03-29 15:56:42 | INFO     | API Client initialized with base URL: https://simple-grocery-store-api.click
+2026-03-29 15:56:42 | INFO     | Test: DELETE - Remove Item from Cart
+2026-03-29 15:56:42 | INFO     | ============================================================
+2026-03-29 15:56:42 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts
+2026-03-29 15:56:42 | INFO     | ============================================================
+2026-03-29 15:56:43 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:43 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "cartId": "S6v7CcDx9z1j5caCrgq1X"
+}
+2026-03-29 15:56:43 | INFO     | ============================================================
+
+2026-03-29 15:56:43 | INFO     | ============================================================
+2026-03-29 15:56:43 | INFO     | REQUEST: POST https://simple-grocery-store-api.click/carts/S6v7CcDx9z1j5caCrgq1X/items
+2026-03-29 15:56:43 | INFO     | REQUEST BODY: {
+  "productId": 4643,
+  "quantity": 1
+}
+2026-03-29 15:56:43 | INFO     | ============================================================
+2026-03-29 15:56:44 | INFO     | RESPONSE STATUS: 201 Created
+2026-03-29 15:56:44 | INFO     | RESPONSE BODY: {
+  "created": true,
+  "itemId": 839169208
+}
+2026-03-29 15:56:44 | INFO     | ============================================================
+
+2026-03-29 15:56:44 | INFO     | ============================================================
+2026-03-29 15:56:44 | INFO     | REQUEST: DELETE https://simple-grocery-store-api.click/carts/S6v7CcDx9z1j5caCrgq1X/items/839169208
+2026-03-29 15:56:44 | INFO     | ============================================================
+2026-03-29 15:56:45 | INFO     | RESPONSE STATUS: 204 No Content
+2026-03-29 15:56:45 | INFO     | RESPONSE BODY: 
+2026-03-29 15:56:45 | INFO     | ============================================================
+
+2026-03-29 15:56:45 | INFO     | ============================================================
+2026-03-29 15:56:45 | INFO     | REQUEST: GET https://simple-grocery-store-api.click/carts/S6v7CcDx9z1j5caCrgq1X/items
+2026-03-29 15:56:45 | INFO     | ============================================================
+2026-03-29 15:56:46 | INFO     | RESPONSE STATUS: 200 OK
+2026-03-29 15:56:46 | INFO     | RESPONSE BODY: []
+2026-03-29 15:56:46 | INFO     | ============================================================
+
+2026-03-29 15:56:46 | INFO     | Successfully deleted item from cart
+2026-03-29 15:56:46 | INFO     | TEST PASSED: tests/test_products.py::TestCartCRUDOperations::test_delete_item_from_cart
+2026-03-29 15:56:46 | INFO     | ######################################################################
+2026-03-29 15:56:46 | INFO     | COMPLETED TEST: tests/test_products.py::TestCartCRUDOperations::test_delete_item_from_cart
+2026-03-29 15:56:46 | INFO     | ######################################################################
+
+2026-03-29 15:56:46 | INFO     | ======================================================================
+2026-03-29 15:56:46 | INFO     | TEST SESSION COMPLETED
+2026-03-29 15:56:46 | INFO     | Timestamp: 2026-03-29 15:56:46
+2026-03-29 15:56:46 | INFO     | ======================================================================
