@@ -1,0 +1,69 @@
+# =============================================================================
+# GITHUB ACTIONS - Run Tests Automatically
+# =============================================================================
+# This workflow automatically runs your tests when you:
+# 1. Push code to the main branch
+# 2. Create a pull request to main branch
+#
+# How it works:
+# 1. GitHub sets up a virtual machine
+# 2. Installs Python
+# 3. Installs your dependencies
+# 4. Runs pytest
+# 5. Shows the results
+#
+# To use this:
+# 1. Create a folder named ".github/workflows" in your project
+# 2. Save this file as "test.yml" inside that folder
+# 3. Push your code to GitHub
+# =============================================================================
+
+# Name of the workflow (shown in GitHub Actions tab)
+name: Run Tests
+
+# When to run this workflow
+on:
+  # Run when code is pushed to main branch
+  push:
+    branches: [main]
+  
+  # Run when a pull request is made to main branch
+  pull_request:
+    branches: [main]
+
+# What the workflow does
+jobs:
+  # Job name: test
+  test:
+    # Where to run: Ubuntu (free GitHub runner)
+    runs-on: ubuntu-latest
+    
+    # Steps to execute
+    steps:
+      # Step 1: Download the code from repository
+      - name: 📥 Download Code
+        uses: actions/checkout@v4
+      
+      # Step 2: Install Python
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      
+      # Step 3: Install dependencies from requirements.txt
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      # Step 4: Run the tests
+      - name: 🧪 Run Tests
+        run: pytest -v
+      
+      # Step 5: Upload HTML report as artifact (optional)
+      - name: 📊 Upload Test Report
+        if: always()  # Run even if tests fail
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: reports/*.html
