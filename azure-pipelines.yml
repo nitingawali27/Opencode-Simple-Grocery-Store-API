@@ -1,0 +1,103 @@
+# =============================================================================
+# AZURE PIPELINES - Simple Grocery Store API Tests
+# =============================================================================
+# This pipeline has 3 stages:
+#   Stage 1: Install     - Install Python and dependencies
+#   Stage 2: Test        - Run all pytest tests
+#   Stage 3: Report      - Publish the test report
+# =============================================================================
+
+trigger:
+  - main                          # Run pipeline when code is pushed to main branch
+
+pool:
+  vmImage: 'windows-latest'       # Use Windows machine to run the pipeline
+
+
+# =============================================================================
+# STAGE 1: INSTALL
+# =============================================================================
+stages:
+
+- stage: Install
+  displayName: 'Stage 1 - Install Dependencies'
+  jobs:
+  - job: InstallJob
+    displayName: 'Install Python and Packages'
+    steps:
+
+    - task: UsePythonVersion@0
+      displayName: 'Set Python Version to 3.12'
+      inputs:
+        versionSpec: '3.12'
+
+    - script: python --version
+      displayName: 'Check Python Version'
+
+    - script: pip install -r pytest-framework/requirements.txt
+      displayName: 'Install Requirements'
+
+
+# =============================================================================
+# STAGE 2: TEST
+# =============================================================================
+- stage: Test
+  displayName: 'Stage 2 - Run Tests'
+  dependsOn: Install                # This stage runs AFTER Install stage
+  jobs:
+  - job: TestJob
+    displayName: 'Run All Pytest Tests'
+    steps:
+
+    - task: UsePythonVersion@0
+      displayName: 'Set Python Version to 3.12'
+      inputs:
+        versionSpec: '3.12'
+
+    - script: pip install -r pytest-framework/requirements.txt
+      displayName: 'Install Requirements'
+
+    - script: |
+        cd pytest-framework
+        pytest -v --junitxml=test-results.xml
+      displayName: 'Run All Tests'
+
+    - task: PublishTestResults@2
+      displayName: 'Publish Test Results to Azure'
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: 'pytest-framework/test-results.xml'
+      condition: always()           # Run even if tests fail
+
+
+# =============================================================================
+# STAGE 3: REPORT
+# =============================================================================
+- stage: Report
+  displayName: 'Stage 3 - Publish Report'
+  dependsOn: Test                   # This stage runs AFTER Test stage
+  condition: always()               # Run even if Test stage fails
+  jobs:
+  - job: ReportJob
+    displayName: 'Publish HTML Report'
+    steps:
+
+    - task: UsePythonVersion@0
+      displayName: 'Set Python Version to 3.12'
+      inputs:
+        versionSpec: '3.12'
+
+    - script: pip install -r pytest-framework/requirements.txt
+      displayName: 'Install Requirements'
+
+    - script: |
+        cd pytest-framework
+        pytest -v --html=reports/test_report.html --self-contained-html
+      displayName: 'Generate HTML Report'
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Upload HTML Report as Artifact'
+      inputs:
+        pathToPublish: 'pytest-framework/reports'
+        artifactName: 'TestReport'
+      condition: always()           # Upload even if tests fail
