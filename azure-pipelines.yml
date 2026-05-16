@@ -175,13 +175,15 @@ stages:
 
 # =============================================================================
 # STAGE 6: RUN TEST PLAN
-# This stage is triggered by Azure Test Plans "Run Automated Tests"
-# It runs all pytest tests and publishes results back to Test Plans
+# Triggered by Azure Test Plans "Run Automated Tests" OR manually.
+# Runs all pytest tests and publishes results back to Test Plans via REST API.
 #
-# BEFORE USING THIS STAGE:
-#   1. Go to Pipelines > Environments > New Environment
-#   2. Name it "TestEnvironment" and click Create
-#   3. Associate each Test Case in Test Plans with the pytest test name
+# One-time setup required in Azure DevOps:
+#   1. Pipelines > Environments > New Environment  ->  name it "TestEnvironment"
+#   2. Pipeline settings > enable "Allow scripts to access the OAuth token"
+#      (Edit pipeline > ... > Triggers > YAML > Agent job > tick the checkbox)
+#   3. Add pipeline variable TEST_PLAN_ID = <your Test Plan ID number>
+#      (find it in Test Plans URL: ?planId=123)
 # =============================================================================
 - stage: RunTestPlan
   displayName: 'Stage 6 - Run Azure Test Plan'
@@ -208,16 +210,30 @@ stages:
 
           - script: |
               cd pytest-framework
-              pytest -v --junitxml=results_testplan.xml
-            displayName: 'Run All Tests for Test Plan'
+              pytest -v --junitxml=../results_testplan.xml
+            displayName: 'Run All Pytest Tests'
+            continueOnError: true   # Keep going so we always publish results
 
+          # PublishTestResults links results to the pipeline build view
           - task: PublishTestResults@2
-            displayName: 'Publish Results back to Azure Test Plan'
+            displayName: 'Publish Results to Pipeline Build'
             inputs:
               testResultsFormat: 'JUnit'
-              testResultsFiles: 'pytest-framework/results_testplan.xml'
+              testResultsFiles: 'results_testplan.xml'
               testRunTitle: 'Automated Test Plan Run'
-            condition: always()     # Publish even if some tests fail
+              mergeTestResults: false
+            condition: always()
+
+          # publish_results.py creates a proper test run in Azure Test Plans
+          # and uploads each pytest result so they appear under Test Plans > Runs
+          - script: python pytest-framework/utils/publish_results.py
+            displayName: 'Publish Results to Azure Test Plans (REST API)'
+            condition: always()
+            env:
+              SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+              JUNIT_XML_PATH: results_testplan.xml
+              TEST_PLAN_ID: $(TEST_PLAN_ID)
+              TEST_RUN_TITLE: 'Automated Pytest Run'
 
 
 # =============================================================================
