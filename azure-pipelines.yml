@@ -1,10 +1,13 @@
 # =============================================================================
 # AZURE PIPELINES - Simple Grocery Store API Tests
 # =============================================================================
-# This pipeline has 3 stages:
-#   Stage 1: Install     - Install Python and dependencies
-#   Stage 2: Test        - Run all pytest tests
-#   Stage 3: Report      - Publish the test report
+# This pipeline has 6 stages:
+#   Stage 1: Validate       - Check Python and project files exist
+#   Stage 2: Install        - Install all dependencies
+#   Stage 3: TestProducts   - Run product tests only
+#   Stage 4: TestCart       - Run cart tests only
+#   Stage 5: TestOrders     - Run order tests only
+#   Stage 6: Report         - Publish final HTML report
 # =============================================================================
 
 trigger:
@@ -14,43 +17,73 @@ pool:
   vmImage: 'windows-latest'       # Use Windows machine to run the pipeline
 
 
-# =============================================================================
-# STAGE 1: INSTALL
-# =============================================================================
 stages:
 
-- stage: Install
-  displayName: 'Stage 1 - Install Dependencies'
+# =============================================================================
+# STAGE 1: VALIDATE
+# Check that Python is available and project files exist
+# =============================================================================
+- stage: Validate
+  displayName: 'Stage 1 - Validate Environment'
   jobs:
-  - job: InstallJob
-    displayName: 'Install Python and Packages'
+  - job: ValidateJob
+    displayName: 'Check Python and Project Files'
     steps:
 
     - task: UsePythonVersion@0
-      displayName: 'Set Python Version to 3.12'
+      displayName: 'Set Python 3.12'
       inputs:
         versionSpec: '3.12'
 
     - script: python --version
-      displayName: 'Check Python Version'
+      displayName: 'Print Python Version'
+
+    - script: |
+        echo Checking project files...
+        if exist pytest-framework\requirements.txt (echo requirements.txt found) else (echo ERROR: requirements.txt missing && exit 1)
+        if exist pytest-framework\config.py       (echo config.py found)          else (echo ERROR: config.py missing && exit 1)
+        if exist pytest-framework\tests           (echo tests folder found)       else (echo ERROR: tests folder missing && exit 1)
+      displayName: 'Check Required Files Exist'
+
+
+# =============================================================================
+# STAGE 2: INSTALL
+# Install all Python packages from requirements.txt
+# =============================================================================
+- stage: Install
+  displayName: 'Stage 2 - Install Dependencies'
+  dependsOn: Validate               # Runs AFTER Validate
+  jobs:
+  - job: InstallJob
+    displayName: 'Install Python Packages'
+    steps:
+
+    - task: UsePythonVersion@0
+      displayName: 'Set Python 3.12'
+      inputs:
+        versionSpec: '3.12'
 
     - script: pip install -r pytest-framework/requirements.txt
       displayName: 'Install Requirements'
 
+    - script: pip list
+      displayName: 'Print Installed Packages'
+
 
 # =============================================================================
-# STAGE 2: TEST
+# STAGE 3: TEST PRODUCTS
+# Run only the product tests (test_products.py)
 # =============================================================================
-- stage: Test
-  displayName: 'Stage 2 - Run Tests'
-  dependsOn: Install                # This stage runs AFTER Install stage
+- stage: TestProducts
+  displayName: 'Stage 3 - Test Products'
+  dependsOn: Install                # Runs AFTER Install
   jobs:
-  - job: TestJob
-    displayName: 'Run All Pytest Tests'
+  - job: ProductTestJob
+    displayName: 'Run Product Tests'
     steps:
 
     - task: UsePythonVersion@0
-      displayName: 'Set Python Version to 3.12'
+      displayName: 'Set Python 3.12'
       inputs:
         versionSpec: '3.12'
 
@@ -59,31 +92,101 @@ stages:
 
     - script: |
         cd pytest-framework
-        pytest -v --junitxml=test-results.xml
-      displayName: 'Run All Tests'
+        pytest tests/test_products.py -v --junitxml=results_products.xml
+      displayName: 'Run test_products.py'
 
     - task: PublishTestResults@2
-      displayName: 'Publish Test Results to Azure'
+      displayName: 'Publish Product Test Results'
       inputs:
         testResultsFormat: 'JUnit'
-        testResultsFiles: 'pytest-framework/test-results.xml'
-      condition: always()           # Run even if tests fail
+        testResultsFiles: 'pytest-framework/results_products.xml'
+        testRunTitle: 'Product Tests'
+      condition: always()
 
 
 # =============================================================================
-# STAGE 3: REPORT
+# STAGE 4: TEST CART
+# Run only the cart tests (test_cart.py)
 # =============================================================================
-- stage: Report
-  displayName: 'Stage 3 - Publish Report'
-  dependsOn: Test                   # This stage runs AFTER Test stage
-  condition: always()               # Run even if Test stage fails
+- stage: TestCart
+  displayName: 'Stage 4 - Test Cart'
+  dependsOn: TestProducts           # Runs AFTER TestProducts
   jobs:
-  - job: ReportJob
-    displayName: 'Publish HTML Report'
+  - job: CartTestJob
+    displayName: 'Run Cart Tests'
     steps:
 
     - task: UsePythonVersion@0
-      displayName: 'Set Python Version to 3.12'
+      displayName: 'Set Python 3.12'
+      inputs:
+        versionSpec: '3.12'
+
+    - script: pip install -r pytest-framework/requirements.txt
+      displayName: 'Install Requirements'
+
+    - script: |
+        cd pytest-framework
+        pytest tests/test_cart.py -v --junitxml=results_cart.xml
+      displayName: 'Run test_cart.py'
+
+    - task: PublishTestResults@2
+      displayName: 'Publish Cart Test Results'
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: 'pytest-framework/results_cart.xml'
+        testRunTitle: 'Cart Tests'
+      condition: always()
+
+
+# =============================================================================
+# STAGE 5: TEST ORDERS
+# Run only the order tests (test_orders.py)
+# =============================================================================
+- stage: TestOrders
+  displayName: 'Stage 5 - Test Orders'
+  dependsOn: TestCart               # Runs AFTER TestCart
+  jobs:
+  - job: OrderTestJob
+    displayName: 'Run Order Tests'
+    steps:
+
+    - task: UsePythonVersion@0
+      displayName: 'Set Python 3.12'
+      inputs:
+        versionSpec: '3.12'
+
+    - script: pip install -r pytest-framework/requirements.txt
+      displayName: 'Install Requirements'
+
+    - script: |
+        cd pytest-framework
+        pytest tests/test_orders.py -v --junitxml=results_orders.xml
+      displayName: 'Run test_orders.py'
+
+    - task: PublishTestResults@2
+      displayName: 'Publish Order Test Results'
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: 'pytest-framework/results_orders.xml'
+        testRunTitle: 'Order Tests'
+      condition: always()
+
+
+# =============================================================================
+# STAGE 6: REPORT
+# Generate and upload the final HTML report
+# =============================================================================
+- stage: Report
+  displayName: 'Stage 6 - Publish Report'
+  dependsOn: TestOrders             # Runs AFTER TestOrders
+  condition: always()               # Always run even if tests failed
+  jobs:
+  - job: ReportJob
+    displayName: 'Generate and Upload HTML Report'
+    steps:
+
+    - task: UsePythonVersion@0
+      displayName: 'Set Python 3.12'
       inputs:
         versionSpec: '3.12'
 
@@ -93,11 +196,12 @@ stages:
     - script: |
         cd pytest-framework
         pytest -v --html=reports/test_report.html --self-contained-html
-      displayName: 'Generate HTML Report'
+      displayName: 'Generate Full HTML Report'
+      condition: always()
 
     - task: PublishBuildArtifacts@1
-      displayName: 'Upload HTML Report as Artifact'
+      displayName: 'Upload HTML Report'
       inputs:
         pathToPublish: 'pytest-framework/reports'
         artifactName: 'TestReport'
-      condition: always()           # Upload even if tests fail
+      condition: always()
