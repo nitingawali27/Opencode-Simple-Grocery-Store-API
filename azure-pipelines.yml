@@ -1,13 +1,14 @@
 # =============================================================================
 # AZURE PIPELINES - Simple Grocery Store API Tests
 # =============================================================================
-# This pipeline has 6 stages:
+# This pipeline has 7 stages:
 #   Stage 1: Validate       - Check Python and project files exist
 #   Stage 2: Install        - Install all dependencies
 #   Stage 3: TestProducts   - Run product tests only
 #   Stage 4: TestCart       - Run cart tests only
 #   Stage 5: TestOrders     - Run order tests only
-#   Stage 6: Report         - Publish final HTML report
+#   Stage 6: RunTestPlan    - Triggered by Azure Test Plans (Run Automated Tests)
+#   Stage 7: Report         - Publish final HTML report
 # =============================================================================
 
 trigger:
@@ -173,11 +174,58 @@ stages:
 
 
 # =============================================================================
-# STAGE 6: REPORT
+# STAGE 6: RUN TEST PLAN
+# This stage is triggered by Azure Test Plans "Run Automated Tests"
+# It runs all pytest tests and publishes results back to Test Plans
+#
+# BEFORE USING THIS STAGE:
+#   1. Go to Pipelines > Environments > New Environment
+#   2. Name it "TestEnvironment" and click Create
+#   3. Associate each Test Case in Test Plans with the pytest test name
+# =============================================================================
+- stage: RunTestPlan
+  displayName: 'Stage 6 - Run Azure Test Plan'
+  dependsOn: Install                # Runs AFTER Install stage
+  condition: always()               # Always available for Test Plans to trigger
+  jobs:
+  - deployment: TestPlanJob
+    displayName: 'Run Automated Test Cases from Test Plan'
+    environment: 'TestEnvironment'  # Must exist in Pipelines > Environments
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+
+          - checkout: self           # Checkout the code first
+
+          - task: UsePythonVersion@0
+            displayName: 'Set Python 3.12'
+            inputs:
+              versionSpec: '3.12'
+
+          - script: pip install -r pytest-framework/requirements.txt
+            displayName: 'Install Requirements'
+
+          - script: |
+              cd pytest-framework
+              pytest -v --junitxml=results_testplan.xml
+            displayName: 'Run All Tests for Test Plan'
+
+          - task: PublishTestResults@2
+            displayName: 'Publish Results back to Azure Test Plan'
+            inputs:
+              testResultsFormat: 'JUnit'
+              testResultsFiles: 'pytest-framework/results_testplan.xml'
+              testRunTitle: 'Automated Test Plan Run'
+            condition: always()     # Publish even if some tests fail
+
+
+# =============================================================================
+# STAGE 7: REPORT
 # Generate and upload the final HTML report
 # =============================================================================
 - stage: Report
-  displayName: 'Stage 6 - Publish Report'
+  displayName: 'Stage 7 - Publish Report'
   dependsOn: TestOrders             # Runs AFTER TestOrders
   condition: always()               # Always run even if tests failed
   jobs:
