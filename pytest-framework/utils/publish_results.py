@@ -148,9 +148,11 @@ def main():
         "buildId": build_id,
         "startedDate": datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
     }
-    if plan_id_str:
+    if plan_id_str and plan_id_str.strip().lstrip('-').isdigit():
         run_body["plan"] = {"id": int(plan_id_str)}
         print(f"[INFO] Linking run to Test Plan ID: {plan_id_str}")
+    elif plan_id_str:
+        print(f"[WARN] TEST_PLAN_ID '{plan_id_str}' is not a valid number — skipping plan link.")
 
     print(f"[INFO] Creating test run '{run_title}' ...")
     run = ado_request(f"{api_base}/runs?{api_ver}", 'POST', run_body, token)
